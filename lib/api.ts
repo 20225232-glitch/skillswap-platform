@@ -19,34 +19,31 @@ export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
 
     console.log("[v0] API Response Status:", response.status, response.statusText)
 
-    // Try to get response text first to see what we got
-    const responseText = await response.text()
-    console.log("[v0] Raw Response:", responseText)
-
     if (!response.ok) {
+      const contentType = response.headers.get("content-type")
       let error
-      try {
-        error = JSON.parse(responseText)
-      } catch {
-        error = { message: responseText || `HTTP ${response.status}` }
+
+      if (contentType?.includes("application/json")) {
+        error = await response.json()
+      } else {
+        const text = await response.text()
+        error = { message: text || `Request failed with status ${response.status}` }
       }
-      console.error("[v0] API Error:", error)
-      throw new Error(error.message || error.error || `HTTP ${response.status}`)
+
+      throw new Error(error.message || error.error || "Request failed")
     }
 
-    const data = responseText ? JSON.parse(responseText) : {}
-    console.log("[v0] API Success:", data)
-    return data
+    const contentType = response.headers.get("content-type")
+    if (contentType?.includes("application/json")) {
+      return await response.json()
+    }
+
+    return {}
   } catch (error: any) {
     console.error("[v0] Fetch Error:", error.message)
 
     if (error.message === "Failed to fetch") {
-      throw new Error(
-        "Cannot connect to backend. Please check:\n" +
-          "1. Backend is running on Render\n" +
-          "2. CORS is enabled for Vercel domain\n" +
-          "3. Network connection is stable",
-      )
+      throw new Error("Cannot connect to backend. Make sure the backend server is running on port 4000.")
     }
 
     throw error

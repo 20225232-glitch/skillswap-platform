@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique @db.VarChar
+  password_hash    String    @db.VarChar
+  name             String    @db.VarChar
+  bio              String?   @db.Text
+  location         String?   @db.VarChar
+  occupation       String?   @db.VarChar
+  birth_date       DateTime? @db.Date
+  gender           String?   @db.VarChar
+  profile_image_url String?  @db.Text
+  latitude         Decimal?  @db.Decimal
+  longitude        Decimal?  @db.Decimal
+  radius_km        Int?
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  last_login       DateTime?
+
+  skills_offered    Skill[]          @relation("UserOfferedSkills")
+  skill_requests_made SkillRequest[] @relation("RequesterRequests")
+  skill_requests_received SkillRequest[] @relation("ProviderRequests")
+  reviews_given     Review[]         @relation("ReviewerReviews")
+  reviews_received  Review[]         @relation("RevieweeReviews")
+  messages_sent     Message[]        @relation("SenderMessages")
+  messages_received Message[]        @relation("ReceiverMessages")
+  notifications     Notification[]
+  user_interests    UserInterest[]
+  favorites         Favorite[]       @relation("UserFavorites")
+  favorited_by      Favorite[]       @relation("FavoritedUser")
+  blocked_users     BlockedUser[]    @relation("UserBlocks")
+  blocked_by        BlockedUser[]    @relation("BlockedUser")
+
+  @@map("users")
+}
+
+model Interest {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar
+  category String @db.VarChar
+
+  user_interests UserInterest[]
+
+  @@map("interests")
+}
+
+model UserInterest {
+  user_id     Int
+  interest_id Int
+
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  interest Interest @relation(fields: [interest_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, interest_id])
+  @@map("user_interests")
+}
+
+model Skill {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  skill_name     String   @db.VarChar
+  skill_category String   @db.VarChar
+  skill_level    String   @db.VarChar
+  description    String?  @db.Text
+  is_offering    Boolean  @default(true)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  user            User           @relation("UserOfferedSkills", fields: [user_id], references: [id], onDelete: Cascade)
+  skill_requests  SkillRequest[]
+
+  @@map("skills")
+}
+
+model SkillRequest {
+  id           Int      @id @default(autoincrement())
+  requester_id Int
+  provider_id  Int
+  skill_id     Int
+  message      String?  @db.Text
+  status       String   @default("pending") @db.VarChar
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  requester User     @relation("RequesterRequests", fields: [requester_id], references: [id], onDelete: Cascade)
+  provider  User     @relation("ProviderRequests", fields: [provider_id], references: [id], onDelete: Cascade)
+  skill     Skill    @relation(fields: [skill_id], references: [id], onDelete: Cascade)
+  messages  Message[]
+  reviews   Review[]
+
+  @@map("skill_requests")
+}
+
+model Message {
+  id           Int      @id @default(autoincrement())
+  sender_id    Int
+  receiver_id  Int
+  request_id   Int?
+  message_text String   @db.Text
+  is_read      Boolean  @default(false)
+  created_at   DateTime @default(now())
+
+  sender       User          @relation("SenderMessages", fields: [sender_id], references: [id], onDelete: Cascade)
+  receiver     User          @relation("ReceiverMessages", fields: [receiver_id], references: [id], onDelete: Cascade)
+  request      SkillRequest? @relation(fields: [request_id], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  reviewer_id Int
+  reviewee_id Int
+  request_id  Int
+  rating      Int
+  review_text String?  @db.Text
+  created_at  DateTime @default(now())
+
+  reviewer User         @relation("ReviewerReviews", fields: [reviewer_id], references: [id], onDelete: Cascade)
+  reviewee User         @relation("RevieweeReviews", fields: [reviewee_id], references: [id], onDelete: Cascade)
+  request  SkillRequest @relation(fields: [request_id], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Notification {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  type       String   @db.VarChar
+  title      String   @db.VarChar
+  message    String   @db.Text
+  link       String?  @db.VarChar
+  is_read    Boolean  @default(false)
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Favorite {
+  user_id          Int
+  favorited_user_id Int
+  created_at       DateTime @default(now())
+
+  user           User @relation("UserFavorites", fields: [user_id], references: [id], onDelete: Cascade)
+  favorited_user User @relation("FavoritedUser", fields: [favorited_user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, favorited_user_id])
+  @@map("favorites")
+}
+
+model BlockedUser {
+  user_id         Int
+  blocked_user_id Int
+  created_at      DateTime @default(now())
+
+  user         User @relation("UserBlocks", fields: [user_id], references: [id], onDelete: Cascade)
+  blocked_user User @relation("BlockedUser", fields: [blocked_user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, blocked_user_id])
+  @@map("blocked_users")
+}

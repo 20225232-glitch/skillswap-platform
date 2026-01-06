@@ -1,7 +1,25 @@
-import { neon } from "@neondatabase/serverless"
+import { PrismaClient } from "@prisma/client"
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is not set")
+// Singleton pattern to prevent multiple Prisma instances
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
 }
 
-export const sql = neon(process.env.DATABASE_URL)
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+  })
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma
+}
+
+// Test database connection
+prisma
+  .$connect()
+  .then(() => console.log("✅ Database connected successfully"))
+  .catch((error) => {
+    console.error("❌ Database connection failed:", error)
+    process.exit(1)
+  })

@@ -1,74 +1,92 @@
 # SkillSwap Platform
 
-A modern skill-swapping platform with separate frontend (Next.js) and backend (Express) services. Connect with peers, exchange skills, and build meaningful learning relationships.
+A modern skill-swapping platform built with Next.js frontend and Express backend. Connect with peers, exchange skills, and build meaningful learning relationships.
 
 ## 🏗️ Project Structure
 
-This project is split into two main folders:
+This is a monorepo with two services:
 
-- **`fe/`** - Next.js 16 frontend application
+- **Root folder** - Next.js 16 frontend application
 - **`be/`** - Express.js backend API server
-
-Each folder has its own README with specific setup instructions.
 
 ## 🚀 Quick Start
 
+### Prerequisites
+
+- Node.js 18+ installed
+- Your Neon database is already connected (via Vercel integration)
+
 ### 1. Backend Setup
 
-\`\`\`bash
+```bash
+# Navigate to backend
 cd be
+
+# Install dependencies
 npm install
-cp .env.example .env
-# Edit .env with your database URL and JWT secret
-# Run SQL scripts on your Neon database (see be/README.md)
+
+# Create .env file
+# You need to add these variables:
+# - DATABASE_URL (get from Vercel env vars or Neon dashboard)
+# - JWT_SECRET (generate a random string)
+# - PORT=4000
+# - FRONTEND_URL=http://localhost:3000
+
+# Start backend server
 npm run dev
-\`\`\`
+```
 
 The backend runs on **http://localhost:4000**
 
 ### 2. Frontend Setup
 
-\`\`\`bash
-cd fe
+```bash
+# From root directory
 npm install
+
+# Create .env.local file
 echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:4000" > .env.local
+
+# Start frontend server
 npm run dev
-\`\`\`
+```
 
 The frontend runs on **http://localhost:3000**
 
 ## 📚 Documentation
 
-- **[Backend Setup Guide](be/README.md)** - Complete backend setup with database migration steps
-- **[Frontend Setup Guide](fe/README.md)** - Frontend configuration and development
+- **[Backend Setup Guide](be/README.md)** - Complete backend setup instructions
 
 ## 🛠️ Tech Stack
 
-### Frontend (`fe/`)
+### Frontend (Root)
 - Next.js 16 with App Router
 - React 19.2
 - TypeScript
-- Tailwind CSS v4 (Maroon & White theme)
+- Tailwind CSS v4
 - shadcn/ui components
 
 ### Backend (`be/`)
 - Node.js + Express
 - TypeScript
-- Neon PostgreSQL (no ORM - raw SQL)
+- Neon PostgreSQL (raw SQL queries)
 - JWT authentication (jose)
 - bcryptjs password hashing
 
 ## 🗄️ Database Schema
 
-The platform includes the following tables:
+Your Neon database includes:
 
 - **users** - User accounts with authentication
-- **interests** - Available skills/interests
-- **user_interests** - User's selected interests (teaching/learning)
-- **matches** - Skill swap matches between users
+- **skills** - Skills offered or wanted by users
+- **interests** - Available skill categories
+- **user_interests** - User's selected interests
+- **skill_requests** - Swap requests between users
 - **messages** - Direct messaging
-
-See `be/scripts/001_initial_schema.sql` for complete schema.
+- **notifications** - User notifications
+- **reviews** - Peer reviews after skill swaps
+- **favorites** - Saved favorite users
+- **blocked_users** - User blocking system
 
 ## 🔐 Authentication Flow
 
@@ -77,16 +95,6 @@ See `be/scripts/001_initial_schema.sql` for complete schema.
 3. Frontend includes cookie automatically in requests
 4. Protected routes verify JWT token via middleware
 
-## 🎨 Design System
-
-**Color Palette**: Maroon & White theme
-- Primary: Rich maroon `oklch(0.35 0.12 15)`
-- Accent: Soft coral `oklch(0.72 0.15 35)`
-- Background: White
-- Rounded corners: `--radius: 1.5rem`
-
-**Typography**: Geist Sans for all text
-
 ## 📋 Key Features
 
 ✅ User authentication (signup/login/logout)  
@@ -94,90 +102,65 @@ See `be/scripts/001_initial_schema.sql` for complete schema.
 ✅ Password hashing with bcrypt  
 ✅ Interest-based skill matching  
 ✅ Direct messaging between users  
-✅ Match management system  
-✅ Clean separation of frontend/backend  
+✅ Skill request management  
+✅ User reviews and ratings  
+✅ Favorites and blocking system
 
 ## 🔧 Development
 
 ### Run Both Servers
 
 Terminal 1 (Backend):
-\`\`\`bash
+```bash
 cd be && npm run dev
-\`\`\`
+```
 
 Terminal 2 (Frontend):
-\`\`\`bash
-cd fe && npm run dev
-\`\`\`
+```bash
+npm run dev
+```
 
-### Database Migrations
-
-SQL migration scripts are in `be/scripts/`. Run them manually on your Neon database in order:
-
-1. `001_initial_schema.sql` - Creates all tables
-2. `002_seed_interests.sql` - Adds starter interests/skills
-
-## 🚨 Important Notes
-
-- **No Prisma**: This project uses raw SQL queries with `@neondatabase/serverless`
-- **Manual Migrations**: Run SQL scripts directly on Neon database
-- **Two Separate Servers**: Frontend (3000) and Backend (4000) run independently
-- **Environment Variables**: Both folders need their own `.env` files
+Visit http://localhost:3000 to see the app!
 
 ## 📝 Environment Variables
 
 ### Backend (`be/.env`)
-\`\`\`env
+```env
 DATABASE_URL=your_neon_database_url
 JWT_SECRET=your_super_secret_key
 PORT=4000
 FRONTEND_URL=http://localhost:3000
-\`\`\`
+```
 
-### Frontend (`fe/.env.local`)
-\`\`\`env
+### Frontend (`.env.local`)
+```env
 NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
-\`\`\`
+```
 
 ## 🐛 Troubleshooting
 
 **"Failed to fetch" errors**: Make sure the backend is running on port 4000 before starting the frontend.
 
-**Database connection errors**: Verify your `DATABASE_URL` in `be/.env` is correct and the SQL scripts have been run.
+**Database connection errors**: Verify your `DATABASE_URL` in `be/.env` matches your Neon database connection string.
 
-**Authentication not working**: Check that `JWT_SECRET` is set in `be/.env` and is a strong random string.
+**Authentication not working**: Check that `JWT_SECRET` is set in `be/.env` and is a strong random string (at least 32 characters).
+
+**CORS errors**: Ensure `FRONTEND_URL` in `be/.env` matches your frontend URL.
 
 ## 📦 Deployment
 
 ### Frontend
-Deploy to Vercel:
-\`\`\`bash
-cd fe
-vercel deploy
-\`\`\`
+Already connected to Vercel! Just push to your GitHub repository.
 
 ### Backend
 Deploy to Render, Railway, or any Node.js hosting:
-\`\`\`bash
+```bash
 cd be
 npm run build
 npm start
-\`\`\`
+```
 
-Update CORS settings in backend to allow your production frontend URL.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## 📄 License
-
-This project is private and proprietary.
+Update environment variables in your hosting platform and set `FRONTEND_URL` to your production Vercel URL.
 
 ---
 
