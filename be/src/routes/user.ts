@@ -39,4 +39,46 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 })
 
+router.patch("/profile", requireAuth, async (req, res) => {
+  try {
+    const { name, bio, location, occupation, birth_date, gender, profile_image_url, latitude, longitude, radius_km } =
+      req.body
+
+    const updated = await prisma.user.update({
+      where: { id: req.user!.id },
+      data: {
+        name,
+        bio,
+        location,
+        occupation,
+        birth_date: birth_date ? new Date(birth_date) : undefined,
+        gender,
+        profile_image_url,
+        latitude: latitude ? Number.parseFloat(latitude) : undefined,
+        longitude: longitude ? Number.parseFloat(longitude) : undefined,
+        radius_km,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        bio: true,
+        location: true,
+        occupation: true,
+        birth_date: true,
+        gender: true,
+        profile_image_url: true,
+        latitude: true,
+        longitude: true,
+        radius_km: true,
+      },
+    })
+
+    res.json({ user: updated })
+  } catch (error) {
+    console.error("Error updating profile:", error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
+
 export default router
