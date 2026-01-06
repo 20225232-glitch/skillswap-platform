@@ -16,9 +16,9 @@ Before you begin, ensure you have:
 
 ### 1. Install Dependencies
 
-```bash
+\`\`\`bash
 npm install
-```
+\`\`\`
 
 This will install all required packages including:
 - Next.js 16
@@ -32,13 +32,13 @@ This will install all required packages including:
 
 Create a \`.env\` file in the root directory:
 
-```bash
+\`\`\`bash
 cp .env.example .env
-```
+\`\`\`
 
 The \`.env\` file should contain:
 
-```env
+\`\`\`env
 DATABASE_URL="postgresql://neondb_owner:npg_XbHjleN3cSA8@ep-billowing-shadow-ah5hiy16-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 NEXT_PUBLIC_BACKEND_URL="https://skillswapneu-graduation-project.onrender.com"
 NEXT_PUBLIC_APP_URL="https://skillswapneu-graduation-project-1.onrender.com"
@@ -47,21 +47,21 @@ EMAIL_VERIFICATION_TTL_SECONDS=7200
 RESEND_API_KEY="re_8N3ntHQQ_AByvsPQAPEAbsz261TAx3fZu"
 NODE_ENV="development"
 PORT=3000
-```
+\`\`\`
 
 ### 3. Database Setup with Prisma
 
 Generate the Prisma Client:
 
-```bash
+\`\`\`bash
 npm run prisma:generate
-```
+\`\`\`
 
 Push the database schema to Neon:
 
-```bash
+\`\`\`bash
 npm run prisma:push
-```
+\`\`\`
 
 This will create all necessary tables in your Neon PostgreSQL database.
 
@@ -69,17 +69,17 @@ This will create all necessary tables in your Neon PostgreSQL database.
 
 Open Prisma Studio to view your database:
 
-```bash
+\`\`\`bash
 npm run prisma:studio
-```
+\`\`\`
 
 This opens a web interface at \`http://localhost:5555\` where you can browse your database tables.
 
 ### 5. Start Development Server
 
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 The application will be available at \`http://localhost:3000\`
 
@@ -89,12 +89,12 @@ Your Node.js/Express backend should be configured with:
 
 ### Required Environment Variables
 
-```env
+\`\`\`env
 DATABASE_URL="<your-neon-database-url>"
 JWT_SECRET="<your-jwt-secret>"
 PORT=10000
 NODE_ENV="production"
-```
+\`\`\`
 
 ### Required API Endpoints
 
@@ -151,20 +151,20 @@ If the frontend can't reach the backend:
 
 If Prisma commands fail:
 
-```bash
+\`\`\`bash
 # Regenerate Prisma Client
 npm run prisma:generate
 
 # Reset and re-push schema
 npx prisma migrate reset
 npm run prisma:push
-```
+\`\`\`
 
 ### Build Issues
 
 If the build fails:
 
-```bash
+\`\`\`bash
 # Clear Next.js cache
 rm -rf .next
 
@@ -174,7 +174,7 @@ npm install
 
 # Rebuild
 npm run build
-```
+\`\`\`
 
 ## Testing the Application
 
@@ -234,6 +234,6 @@ If you encounter issues:
 ---
 
 Happy coding! 🚀
-```
+\`\`\`
 
-```tsx file="" isHidden
+\`\`\`tsx file="" isHidden

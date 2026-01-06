@@ -9,7 +9,7 @@ This error typically means:
 
 **Solution:** Add CORS middleware to your Express app:
 
-```javascript
+\`\`\`javascript
 const cors = require('cors');
 
 app.use(cors({
@@ -21,7 +21,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-```
+\`\`\`
 
 ### 2. Backend Not Running
 **Problem:** Your Render service is sleeping or crashed.
@@ -43,9 +43,9 @@ app.use(cors({
 **Problem:** Network blocking requests.
 
 **Test locally:**
-```bash
+\`\`\`bash
 curl https://skillswapneu-graduation-project.onrender.com/api/auth/signup
-```
+\`\`\`
 
 If this fails, your backend has issues.
 
@@ -60,15 +60,15 @@ For local development without backend:
    - Works offline for UI development
 
 2. **Run backend locally:**
-   ```bash
+   \`\`\`bash
    # In your backend repo
    npm run dev
-   ```
+   \`\`\`
    
    Then update `.env.local`:
-   ```
+   \`\`\`
    NEXT_PUBLIC_BACKEND_URL=http://localhost:10000
-   ```
+   \`\`\`
 
 ---
 
@@ -107,7 +107,7 @@ Ensure your Render backend has:
 
 Add this to your Express app:
 
-```javascript
+\`\`\`javascript
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -115,6 +115,6 @@ app.get('/health', (req, res) => {
     database: 'connected' // Check Prisma connection
   });
 });
-```
+\`\`\`
 
 Test it: `https://skillswapneu-graduation-project.onrender.com/health`

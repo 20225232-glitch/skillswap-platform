@@ -25,7 +25,7 @@ The Skill Swap Platform is a dating-app-style web application where users can co
 
 ## Architecture Diagram
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────┐
 │                     USER (Browser)                          │
 └────────────────────┬────────────────────────────────────────┘
@@ -57,23 +57,23 @@ The Skill Swap Platform is a dating-app-style web application where users can co
 │  │  users  │ │skills│ │matches│ │ messages │ │ reviews │  │
 │  └─────────┘ └──────┘ └───────┘ └──────────┘ └─────────┘  │
 └─────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ## User Journey Flow
 
 ### 1. **Landing Page** (`/`)
-```
+\`\`\`
 User arrives → Sees hero with students collaborating
               ↓
          Two CTA buttons:
          - "Get Started" → /signup
          - "Sign In" → /login
-```
+\`\`\`
 
 ### 2. **Authentication Flow**
 
 **Signup** (`/signup`):
-```
+\`\`\`
 User fills form:
 - Name
 - Email
@@ -89,10 +89,10 @@ Backend:
 - Returns JWT token
   ↓
 Frontend receives token → Stores in cookie → Redirect to /onboarding
-```
+\`\`\`
 
 **Login** (`/login`):
-```
+\`\`\`
 User enters:
 - Email
 - Password
@@ -106,24 +106,24 @@ Backend:
 - Returns token + user data
   ↓
 Frontend stores token → Redirect to /dashboard
-```
+\`\`\`
 
 ### 3. **Onboarding Flow** (`/onboarding`)
 
 New users complete 3 steps:
 
 **Step 1: Profile Setup**
-```
+\`\`\`
 - Upload profile picture
 - Enter bio/description
 - Select gender
 - Enter birthday
   ↓
 Saves to database (users table)
-```
+\`\`\`
 
 **Step 2: Interests Selection**
-```
+\`\`\`
 User selects interests from categories:
 - Outdoor (Camping, Hiking, etc.)
 - Food & Drink (Cooking, Vegan, etc.)
@@ -132,10 +132,10 @@ User selects interests from categories:
 - Technology
   ↓
 Saves to user_interests table (many-to-many)
-```
+\`\`\`
 
 **Step 3: Location & Radius**
-```
+\`\`\`
 - User enters location (city/address)
 - Geocoded to lat/long
 - User sets discovery radius (10-120 km)
@@ -143,14 +143,14 @@ Saves to user_interests table (many-to-many)
 Saves location to users table
   ↓
 Complete → Redirect to /dashboard
-```
+\`\`\`
 
 ### 4. **Main Application Flow**
 
 The app has 5 main sections (bottom navigation):
 
 #### **Activities Tab** (`/dashboard`)
-```
+\`\`\`
 Shows:
 1. "Meet nearby" grid
    - 2x4 grid of user profile cards
@@ -163,10 +163,10 @@ Shows:
    - Upcoming exchanges
    - Activity cards with location/time
    - "Create an activity" FAB button
-```
+\`\`\`
 
 **User Interaction:**
-```
+\`\`\`
 User sees nearby users → Taps profile card
   ↓
 View User Profile → Can:
@@ -175,12 +175,12 @@ View User Profile → Can:
 - Request Skill Swap
   ↓
 If both users like each other → "Match!" notification
-```
+\`\`\`
 
 #### **For You Tab** (`/for-you`)
 
 4 sub-tabs:
-```
+\`\`\`
 1. My Activities
    - Skills user is offering
    - Active exchanges
@@ -198,10 +198,10 @@ If both users like each other → "Match!" notification
 4. Past
    - Completed exchanges
    - Option to review/rate
-```
+\`\`\`
 
 **Skill Request Flow:**
-```
+\`\`\`
 User A requests skill from User B
   ↓
 POST /api/skill-requests
@@ -216,12 +216,12 @@ If accepted:
 - Status → accepted
 - Both users notified
 - Can message to arrange meeting
-```
+\`\`\`
 
 #### **Members Tab** (`/members`)
 
 3 sub-tabs:
-```
+\`\`\`
 1. Members
    - Grid of all users
    - Search functionality
@@ -237,10 +237,10 @@ If accepted:
    - Users who favorited you
    - Can favorite back (mutual match)
    - Empty state: "Favorite members by tapping star"
-```
+\`\`\`
 
 #### **Chat Tab** (`/messages`)
-```
+\`\`\`
 Shows conversation list:
 - User avatar + name
 - Last message preview
@@ -253,10 +253,10 @@ Real-time messages (polling every 3s)
 - Send text messages
 - See message history
 - Back to conversations list
-```
+\`\`\`
 
 #### **Profile Tab** (`/profile`)
-```
+\`\`\`
 Shows user's own profile:
 - Avatar + name + occupation
 - Edit profile button
@@ -271,13 +271,13 @@ Sections:
 - App version info
   ↓
 Settings icon → Privacy, notifications, etc.
-```
+\`\`\`
 
 ## Data Flow Examples
 
 ### Example 1: User Discovers & Connects
 
-```
+\`\`\`
 1. User A opens /dashboard
    ↓
 2. Frontend → GET /api/users/nearby?radius=50
@@ -306,11 +306,11 @@ Settings icon → Privacy, notifications, etc.
 12. If User B already favorited A:
     - Create match notification
     - Both users can now message
-```
+\`\`\`
 
 ### Example 2: Skill Exchange Request
 
-```
+\`\`\`
 1. User A views User B's profile
    - Sees User B offers "Guitar Lessons"
    ↓
@@ -340,11 +340,11 @@ Settings icon → Privacy, notifications, etc.
 10. Backend updates status + creates notification
     ↓
 11. Both users can now message to arrange meeting
-```
+\`\`\`
 
 ## Database Schema Flow
 
-```
+\`\`\`
 users
   ├── id (primary key)
   ├── email (unique)
@@ -391,12 +391,12 @@ reviews (after completed exchange)
   ├── skill_request_id → skill_requests.id
   ├── rating (1-5 stars)
   └── comment
-```
+\`\`\`
 
 ## Security Flow
 
 ### Authentication
-```
+\`\`\`
 1. User logs in
    ↓
 2. Backend validates credentials
@@ -413,10 +413,10 @@ reviews (after completed exchange)
    - Backend verifies token
    - Extracts user ID
    - Proceeds with request
-```
+\`\`\`
 
 ### Protected Routes
-```
+\`\`\`
 Frontend (proxy.ts):
 - Checks if user is logged in
 - Redirects to /login if not
@@ -424,7 +424,7 @@ Frontend (proxy.ts):
 Backend:
 - Validates JWT token
 - Returns 401 if invalid
-```
+\`\`\`
 
 ## Key Features
 

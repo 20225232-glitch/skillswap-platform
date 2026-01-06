@@ -10,7 +10,7 @@ Your Node.js + Express backend on Render must implement these endpoints for the 
 
 **CRITICAL**: Your Express backend MUST have CORS enabled to allow requests from Vercel:
 
-```javascript
+\`\`\`javascript
 const cors = require('cors');
 
 app.use(cors({
@@ -23,7 +23,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-```
+\`\`\`
 
 ## Authentication Endpoints
 
@@ -31,17 +31,17 @@ app.use(cors({
 Create a new user account.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "email": "user@example.com",
   "password": "securepassword123",
   "fullName": "John Doe",
   "username": "johndoe"
 }
-```
+\`\`\`
 
 **Success Response (201):**
-```json
+\`\`\`json
 {
   "user": {
     "id": "uuid",
@@ -51,7 +51,7 @@ Create a new user account.
   },
   "token": "jwt_token_here"
 }
-```
+\`\`\`
 
 **Set-Cookie Header:** `auth-token=jwt_token; HttpOnly; Secure; SameSite=None`
 
@@ -61,15 +61,15 @@ Create a new user account.
 Authenticate existing user.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "email": "user@example.com",
   "password": "securepassword123"
 }
-```
+\`\`\`
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "user": {
     "id": "uuid",
@@ -79,7 +79,7 @@ Authenticate existing user.
   },
   "token": "jwt_token_here"
 }
-```
+\`\`\`
 
 **Set-Cookie Header:** `auth-token=jwt_token; HttpOnly; Secure; SameSite=None`
 
@@ -89,11 +89,11 @@ Authenticate existing user.
 Log out current user.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "message": "Logged out successfully"
 }
-```
+\`\`\`
 
 ---
 
@@ -103,7 +103,7 @@ Get current authenticated user profile.
 **Headers Required:** `Authorization: Bearer {token}` OR Cookie: `auth-token={token}`
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "email": "user@example.com",
@@ -115,7 +115,7 @@ Get current authenticated user profile.
   "interests": ["coding", "music"],
   "createdAt": "2025-01-01T00:00:00Z"
 }
-```
+\`\`\`
 
 ---
 
@@ -125,7 +125,7 @@ Get current authenticated user profile.
 Get full current user profile with skills.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "email": "user@example.com",
@@ -137,7 +137,7 @@ Get full current user profile with skills.
   "interests": [...],
   "skills": [...]
 }
-```
+\`\`\`
 
 ---
 
@@ -145,24 +145,24 @@ Get full current user profile with skills.
 Update user profile.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "fullName": "Jane Doe",
   "bio": "Updated bio",
   "location": "San Francisco",
   "interests": ["design", "art"]
 }
-```
+\`\`\`
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "fullName": "Jane Doe",
   "bio": "Updated bio",
   // ... updated fields
 }
-```
+\`\`\`
 
 ---
 
@@ -175,7 +175,7 @@ Get users within specified radius.
 - `radius`: Radius in kilometers (default: 50)
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "users": [
     {
@@ -189,7 +189,7 @@ Get users within specified radius.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -197,7 +197,7 @@ Get users within specified radius.
 Get specific user profile.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "fullName": "User Name",
@@ -208,7 +208,7 @@ Get specific user profile.
   "skills": [...],
   "reviews": [...]
 }
-```
+\`\`\`
 
 ---
 
@@ -218,17 +218,17 @@ Get specific user profile.
 Create a new skill offering.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "title": "Web Development Tutoring",
   "description": "I can teach JavaScript and React",
   "category": "Technology",
   "level": "Intermediate"
 }
-```
+\`\`\`
 
 **Success Response (201):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "userId": "uuid",
@@ -238,7 +238,7 @@ Create a new skill offering.
   "level": "Intermediate",
   "createdAt": "..."
 }
-```
+\`\`\`
 
 ---
 
@@ -251,7 +251,7 @@ Get all skills with optional filters.
 - `userId`: Get skills for specific user (optional)
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "skills": [
     {
@@ -270,7 +270,7 @@ Get all skills with optional filters.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -278,7 +278,7 @@ Get all skills with optional filters.
 Get specific skill details.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "userId": "uuid",
@@ -289,7 +289,7 @@ Get specific skill details.
   "level": "...",
   "createdAt": "..."
 }
-```
+\`\`\`
 
 ---
 
@@ -297,12 +297,12 @@ Get specific skill details.
 Update skill (owner only).
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "title": "Updated title",
   "description": "Updated description"
 }
-```
+\`\`\`
 
 ---
 
@@ -310,11 +310,11 @@ Update skill (owner only).
 Delete skill (owner only).
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "message": "Skill deleted successfully"
 }
-```
+\`\`\`
 
 ---
 
@@ -324,15 +324,15 @@ Delete skill (owner only).
 Request a skill swap.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "skillId": "uuid",
   "message": "Hi, I'd like to learn from you!"
 }
-```
+\`\`\`
 
 **Success Response (201):**
-```json
+\`\`\`json
 {
   "id": "uuid",
   "requesterId": "uuid",
@@ -341,7 +341,7 @@ Request a skill swap.
   "status": "pending",
   "createdAt": "..."
 }
-```
+\`\`\`
 
 ---
 
@@ -352,7 +352,7 @@ Get requests for current user.
 - `type`: "sent" or "received"
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "requests": [
     {
@@ -365,7 +365,7 @@ Get requests for current user.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -373,11 +373,11 @@ Get requests for current user.
 Accept or reject a request.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "status": "accepted" // or "rejected"
 }
-```
+\`\`\`
 
 ---
 
@@ -387,11 +387,11 @@ Accept or reject a request.
 Add user to favorites.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "favoriteUserId": "uuid"
 }
-```
+\`\`\`
 
 ---
 
@@ -399,7 +399,7 @@ Add user to favorites.
 Get user's favorite users.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "favorites": [
     {
@@ -411,7 +411,7 @@ Get user's favorite users.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -426,12 +426,12 @@ Remove user from favorites.
 Send a message.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "receiverId": "uuid",
   "content": "Hello!"
 }
-```
+\`\`\`
 
 ---
 
@@ -439,7 +439,7 @@ Send a message.
 Get list of conversations.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "conversations": [
     {
@@ -458,7 +458,7 @@ Get list of conversations.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -466,7 +466,7 @@ Get list of conversations.
 Get messages with specific user.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "messages": [
     {
@@ -479,7 +479,7 @@ Get messages with specific user.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -494,13 +494,13 @@ Mark message as read.
 Create a review.
 
 **Request Body:**
-```json
+\`\`\`json
 {
   "reviewedUserId": "uuid",
   "rating": 5,
   "comment": "Great experience!"
 }
-```
+\`\`\`
 
 ---
 
@@ -508,7 +508,7 @@ Create a review.
 Get reviews for a user.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "reviews": [
     {
@@ -525,7 +525,7 @@ Get reviews for a user.
   ],
   "averageRating": 4.8
 }
-```
+\`\`\`
 
 ---
 
@@ -535,7 +535,7 @@ Get reviews for a user.
 Get user notifications.
 
 **Success Response (200):**
-```json
+\`\`\`json
 {
   "notifications": [
     {
@@ -547,7 +547,7 @@ Get user notifications.
     }
   ]
 }
-```
+\`\`\`
 
 ---
 
@@ -561,40 +561,40 @@ Mark notification as read.
 All endpoints should return appropriate error responses:
 
 **400 Bad Request:**
-```json
+\`\`\`json
 {
   "error": "Validation failed",
   "details": ["Email is required", "Password must be at least 8 characters"]
 }
-```
+\`\`\`
 
 **401 Unauthorized:**
-```json
+\`\`\`json
 {
   "error": "Authentication required"
 }
-```
+\`\`\`
 
 **403 Forbidden:**
-```json
+\`\`\`json
 {
   "error": "You don't have permission to perform this action"
 }
-```
+\`\`\`
 
 **404 Not Found:**
-```json
+\`\`\`json
 {
   "error": "Resource not found"
 }
-```
+\`\`\`
 
 **500 Internal Server Error:**
-```json
+\`\`\`json
 {
   "error": "Internal server error"
 }
-```
+\`\`\`
 
 ---
 
@@ -602,7 +602,7 @@ All endpoints should return appropriate error responses:
 
 Your backend should use this Prisma schema (or equivalent):
 
-```prisma
+\`\`\`prisma
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -698,7 +698,7 @@ model Notification {
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
-```
+\`\`\`
 
 ---
 
@@ -706,7 +706,7 @@ model Notification {
 
 Use these curl commands to test your endpoints:
 
-```bash
+\`\`\`bash
 # Test signup
 curl -X POST https://skillswapneu-graduation-project.onrender.com/api/auth/signup \
   -H "Content-Type: application/json" \

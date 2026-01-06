@@ -15,25 +15,25 @@ Each folder has its own README with specific setup instructions.
 
 ### 1. Backend Setup
 
-```bash
+\`\`\`bash
 cd be
 npm install
 cp .env.example .env
 # Edit .env with your database URL and JWT secret
 # Run SQL scripts on your Neon database (see be/README.md)
 npm run dev
-```
+\`\`\`
 
 The backend runs on **http://localhost:4000**
 
 ### 2. Frontend Setup
 
-```bash
+\`\`\`bash
 cd fe
 npm install
 echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:4000" > .env.local
 npm run dev
-```
+\`\`\`
 
 The frontend runs on **http://localhost:3000**
 
@@ -102,14 +102,14 @@ See `be/scripts/001_initial_schema.sql` for complete schema.
 ### Run Both Servers
 
 Terminal 1 (Backend):
-```bash
+\`\`\`bash
 cd be && npm run dev
-```
+\`\`\`
 
 Terminal 2 (Frontend):
-```bash
+\`\`\`bash
 cd fe && npm run dev
-```
+\`\`\`
 
 ### Database Migrations
 
@@ -128,17 +128,17 @@ SQL migration scripts are in `be/scripts/`. Run them manually on your Neon datab
 ## 📝 Environment Variables
 
 ### Backend (`be/.env`)
-```env
+\`\`\`env
 DATABASE_URL=your_neon_database_url
 JWT_SECRET=your_super_secret_key
 PORT=4000
 FRONTEND_URL=http://localhost:3000
-```
+\`\`\`
 
 ### Frontend (`fe/.env.local`)
-```env
+\`\`\`env
 NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
-```
+\`\`\`
 
 ## 🐛 Troubleshooting
 
@@ -152,18 +152,18 @@ NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
 
 ### Frontend
 Deploy to Vercel:
-```bash
+\`\`\`bash
 cd fe
 vercel deploy
-```
+\`\`\`
 
 ### Backend
 Deploy to Render, Railway, or any Node.js hosting:
-```bash
+\`\`\`bash
 cd be
 npm run build
 npm start
-```
+\`\`\`
 
 Update CORS settings in backend to allow your production frontend URL.
 

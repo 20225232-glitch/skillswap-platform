@@ -14,19 +14,19 @@ Before you start, ensure you have:
 
 ### 1. Clone or Download the Project
 
-```bash
+\`\`\`bash
 # If using git
 git clone <your-repo-url>
 cd skill-swap-platform
 
 # Or download ZIP and extract
-```
+\`\`\`
 
 ### 2. Install Dependencies
 
-```bash
+\`\`\`bash
 npm install
-```
+\`\`\`
 
 **Common Issues:**
 - **Error: "Cannot find module"** - Delete `node_modules` and `package-lock.json`, then run `npm install` again
@@ -37,19 +37,19 @@ npm install
 
 Create a `.env.local` file in the root directory:
 
-```bash
+\`\`\`bash
 # Copy the example file
 cp .env.example .env.local
-```
+\`\`\`
 
 Edit `.env.local` with your actual credentials:
 
-```env
+\`\`\`env
 DATABASE_URL="postgresql://neondb_owner:npg_XbHjleN3cSA8@ep-billowing-shadow-ah5hiy16-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
 NEXT_PUBLIC_BACKEND_URL="https://skillswapneu-graduation-project.onrender.com"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 JWT_SECRET="rHxdpyz4ANd5J5NoP3XOBTjQUahNKhwdd-9zI_UxO71VPwlGZyCFZLePATfjCIht-AEyZnNAyCBJw_5Hw0CT0w"
-```
+\`\`\`
 
 **Common Issues:**
 - **Variables not loading** - Make sure file is named `.env.local` NOT `.env`
@@ -58,7 +58,7 @@ JWT_SECRET="rHxdpyz4ANd5J5NoP3XOBTjQUahNKhwdd-9zI_UxO71VPwlGZyCFZLePATfjCIht-AEy
 
 ### 4. Setup Prisma Database
 
-```bash
+\`\`\`bash
 # Generate Prisma Client
 npm run prisma:generate
 
@@ -67,7 +67,7 @@ npm run prisma:push
 
 # Optional: Open Prisma Studio to view data
 npm run prisma:studio
-```
+\`\`\`
 
 **Common Issues:**
 - **Database connection error** - Check your DATABASE_URL is correct
@@ -76,9 +76,9 @@ npm run prisma:studio
 
 ### 5. Start Development Server
 
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 The app will open at `http://localhost:3000`
 
@@ -110,13 +110,13 @@ Open these URLs to test:
 **Cause:** Your Neon database schema doesn't match Prisma schema
 
 **Solutions:**
-```bash
+\`\`\`bash
 # Reset database (WARNING: deletes all data)
 npx prisma migrate reset
 
 # Or push schema without reset
 npx prisma db push --force-reset
-```
+\`\`\`
 
 ### Challenge 3: Images Not Loading
 
@@ -132,7 +132,7 @@ npx prisma db push --force-reset
 **Cause:** Type mismatches or outdated types
 
 **Solutions:**
-```bash
+\`\`\`bash
 # Regenerate Prisma types
 npm run prisma:generate
 
@@ -140,7 +140,7 @@ npm run prisma:generate
 rm -rf .next node_modules/.cache
 
 # Restart your code editor
-```
+\`\`\`
 
 ### Challenge 5: Styles Not Applying
 
@@ -164,7 +164,7 @@ rm -rf .next node_modules/.cache
 
 ## Development Workflow
 
-```bash
+\`\`\`bash
 # Start development
 npm run dev
 
@@ -176,11 +176,11 @@ npm run type-check
 
 # Format code
 npm run format
-```
+\`\`\`
 
 ## Building for Production
 
-```bash
+\`\`\`bash
 # Create production build
 npm run build
 
@@ -189,7 +189,7 @@ npm start
 
 # Deploy to Vercel
 vercel deploy
-```
+\`\`\`
 
 ## Getting Help
 
@@ -201,7 +201,7 @@ If you encounter issues not covered here:
 
 ## Quick Start (TL;DR)
 
-```bash
+\`\`\`bash
 # Install
 npm install
 
@@ -215,6 +215,6 @@ npm run prisma:push
 
 # Start
 npm run dev
-```
+\`\`\`
 
 Visit `http://localhost:3000` and you're ready to go!

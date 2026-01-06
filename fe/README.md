@@ -6,24 +6,24 @@ Next.js frontend application for the SkillSwap platform.
 
 ### 1. Install Dependencies
 
-```bash
+\`\`\`bash
 cd fe
 npm install
-```
+\`\`\`
 
 ### 2. Set Up Environment Variables
 
 Create a `.env.local` file:
 
-```bash
+\`\`\`bash
 NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
-```
+\`\`\`
 
 ### 3. Start the Development Server
 
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 The frontend will start on http://localhost:3000
 
@@ -34,7 +34,7 @@ The frontend will start on http://localhost:3000
 
 ## Project Structure
 
-```
+\`\`\`
 fe/
 ├── app/              # Next.js app directory
 │   ├── page.tsx      # Landing page

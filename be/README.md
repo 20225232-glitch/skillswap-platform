@@ -6,27 +6,27 @@ Express.js backend server for the SkillSwap platform.
 
 ### 1. Install Dependencies
 
-```bash
+\`\`\`bash
 cd be
 npm install
-```
+\`\`\`
 
 ### 2. Set Up Environment Variables
 
 Copy the example environment file:
 
-```bash
+\`\`\`bash
 cp .env.example .env
-```
+\`\`\`
 
 Edit `.env` and add your actual values:
 
-```env
+\`\`\`env
 DATABASE_URL=your_neon_database_url_here
 JWT_SECRET=your_super_secret_jwt_key_change_this
 PORT=4000
 FRONTEND_URL=http://localhost:3000
-```
+\`\`\`
 
 **Important**: 
 - Get your `DATABASE_URL` from your Neon dashboard
@@ -45,25 +45,25 @@ The SQL scripts in the `scripts/` folder need to be executed on your Neon databa
 5. Repeat for `scripts/002_seed_interests.sql`
 
 **Option 2: Using psql**
-```bash
+\`\`\`bash
 psql "your_neon_connection_string" -f scripts/001_initial_schema.sql
 psql "your_neon_connection_string" -f scripts/002_seed_interests.sql
-```
+\`\`\`
 
 ### 4. Start the Development Server
 
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 The backend will start on http://localhost:4000
 
 ### 5. Verify It's Running
 
 Visit http://localhost:4000/health - you should see:
-```json
+\`\`\`json
 {"status":"ok","message":"SkillSwap Backend is running"}
-```
+\`\`\`
 
 ## API Endpoints
 
@@ -79,7 +79,7 @@ Visit http://localhost:4000/health - you should see:
 
 ## Project Structure
 
-```
+\`\`\`
 be/
 ├── src/
 │   ├── config/        # Database and config
@@ -89,7 +89,7 @@ be/
 │   └── index.ts       # Server entry point
 ├── scripts/           # SQL migration scripts
 └── package.json
-```
+\`\`\`
 
 ## Notes
 
